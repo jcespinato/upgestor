@@ -17,6 +17,7 @@ const loginForm = document.getElementById("login-form");
 const transactionForm = document.getElementById("transaction-form");
 const logoutBtn = document.getElementById("logout-btn");
 const filterDateInput = document.getElementById("filter-date");
+const whatsappLinks = document.querySelectorAll('a[href*="wa.me"]');
 
 const historyList = document.getElementById("history-list");
 const summaryText = document.getElementById("monthly-summary");
@@ -42,6 +43,30 @@ const DEMO_SESSION_KEY = "upgestor_demo_session_v1";
 
 function sanitizeEmail(email) {
   return String(email || "").trim().toLowerCase();
+}
+
+function trackWhatsAppClick(link) {
+  if (typeof window.gtag !== "function") {
+    return;
+  }
+
+  const label = (link.textContent || "whatsapp_cta").trim().toLowerCase().replace(/\s+/g, "_");
+  window.gtag("event", "generate_lead", {
+    currency: "BRL",
+    value: 1,
+    method: "whatsapp",
+    event_category: "engagement",
+    event_label: label,
+    link_url: link.href
+  });
+}
+
+function bindWhatsAppTracking() {
+  whatsappLinks.forEach((link) => {
+    link.addEventListener("click", () => {
+      trackWhatsAppClick(link);
+    });
+  });
 }
 
 function getDemoUsers() {
@@ -242,6 +267,7 @@ function startAuthFlow() {
 }
 
 async function initBackend() {
+  bindWhatsAppTracking();
   showLocalModeMessage("Acesso imediato liberado para demonstração.");
   startAuthFlow();
 }
