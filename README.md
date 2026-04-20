@@ -45,6 +45,22 @@ Pode ser publicado facilmente em:
 - [Netlify](https://www.netlify.com/)
 - GitHub Pages (somente frontend estatico)
 
+## Checklist para colocar no ar no GitHub Pages
+
+1. Suba todos os arquivos para o repositorio no GitHub.
+2. Em `Settings > Pages`, selecione a branch principal e a pasta raiz (`/`).
+3. Crie/edite o arquivo `CNAME` na raiz com o seu dominio final (ex.: `www.seudominio.com.br`).
+4. Atualize os placeholders com seu dominio real em:
+   - `robots.txt`
+   - `sitemap.xml`
+5. Configure os DNS no seu provedor de dominio:
+   - `A` para `185.199.108.153`
+   - `A` para `185.199.109.153`
+   - `A` para `185.199.110.153`
+   - `A` para `185.199.111.153`
+   - `CNAME` para `www` apontando para `<seu-usuario>.github.io`
+6. Aguarde propagacao DNS (pode levar algumas horas).
+
 ## Observacao sobre Firebase
 
 Atualmente, o projeto esta configurado para funcionar em modo local de demonstracao, sem depender de Firebase.

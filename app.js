@@ -139,13 +139,20 @@ function renderHistory(transactions, dateFilter = "") {
   filtered.forEach((item) => {
     const line = document.createElement("li");
     line.className = "history-item";
-    line.innerHTML = `
-      <strong class="${item.type}">${item.type === "income" ? "Entrada" : "Saída"}: ${formatCurrency(
-      item.amount
-    )}</strong>
-      <div>${item.category}</div>
-      <small>${parseDateString(item.date)}</small>
-    `;
+
+    const title = document.createElement("strong");
+    title.className = item.type;
+    title.textContent = `${item.type === "income" ? "Entrada" : "Saída"}: ${formatCurrency(item.amount)}`;
+
+    const category = document.createElement("div");
+    category.textContent = item.category;
+
+    const date = document.createElement("small");
+    date.textContent = parseDateString(item.date);
+
+    line.appendChild(title);
+    line.appendChild(category);
+    line.appendChild(date);
     historyList.appendChild(line);
   });
 }
@@ -290,10 +297,10 @@ transactionForm.addEventListener("submit", async (event) => {
   event.preventDefault();
   const type = document.getElementById("type").value;
   const amount = Number(document.getElementById("amount").value);
-  const category = document.getElementById("category").value.trim();
+  const category = document.getElementById("category").value.trim().slice(0, 60);
   const date = document.getElementById("date").value;
 
-  if (!amount || !category || !date) {
+  if (!amount || amount <= 0 || !category || !date) {
     return;
   }
 
