@@ -1,12 +1,12 @@
 {
   "name": "Upgestor",
   "short_name": "Upgestor",
-  "description": "Sistema simples de gestão financeira + site profissional para pequenas empresas.",
+  "description": "Sistema personalizado para empresas + site profissional.",
   "start_url": "/",
   "scope": "/",
   "display": "standalone",
-  "background_color": "#f5f8ff",
-  "theme_color": "#1f56d9",
+  "background_color": "#f4f8fc",
+  "theme_color": "#0d2346",
   "icons": [
     {
       "src": "./assets/favicon.svg",
